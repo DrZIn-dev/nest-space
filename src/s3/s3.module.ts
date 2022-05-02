@@ -1,4 +1,4 @@
-import { DynamicModule, Provider } from '@nestjs/common';
+import { DynamicModule, Global, Module, Provider } from '@nestjs/common';
 import {
   S3ModuleAsyncOptions,
   S3ModuleOption,
@@ -7,19 +7,21 @@ import {
 } from './s3.interface';
 import { S3Service } from './s3.service';
 
+@Global()
+@Module({
+  providers: [S3Service],
+  exports: [S3Service],
+})
 export class S3Module {
   public static forRoot(options: S3ModuleOption): DynamicModule {
     return {
       module: S3Module,
-      imports: [],
       providers: [
         {
           provide: S3_MODULE_CONFIG,
           useValue: options,
         },
-        S3Service,
       ],
-      exports: [S3Service],
     };
   }
 
@@ -28,7 +30,8 @@ export class S3Module {
     return {
       module: S3Module,
       imports: [...options.imports],
-      providers: [...this.createAsyncProviders(options)],
+      providers: [...this.createAsyncProviders(options), S3Service],
+      exports: [S3Service],
     };
   }
   private static createAsyncProviders(

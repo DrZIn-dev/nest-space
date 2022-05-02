@@ -1,7 +1,8 @@
 import { ListBucketsCommand, S3Client } from '@aws-sdk/client-s3';
-import { Inject } from '@nestjs/common';
+import { Inject, Injectable } from '@nestjs/common';
 import { S3ModuleOption, S3_MODULE_CONFIG } from './s3.interface';
 
+@Injectable()
 export class S3Service {
   private s3Client: S3Client;
 

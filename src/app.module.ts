@@ -3,7 +3,7 @@ import { HealthModule } from './health/health.module';
 import { ConfigProvider } from './pkg/provider/config.provider';
 import { LoggerProvider } from './pkg/provider/logger.provider';
 import { PostgresProvider } from './pkg/provider/postgres.provider';
-import { S3Provider } from './pkg/provider/s3.provider';
+import { StorageModule } from './storage/storage.module';
 
 @Module({
   imports: [
@@ -11,7 +11,8 @@ import { S3Provider } from './pkg/provider/s3.provider';
     PostgresProvider,
     LoggerProvider,
     HealthModule,
-    S3Provider,
+
+    StorageModule,
   ],
   controllers: [],
   providers: [],
